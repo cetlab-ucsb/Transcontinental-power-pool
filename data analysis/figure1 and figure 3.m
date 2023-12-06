@@ -1,4 +1,5 @@
-data=readtable('cumulative data_100.xlsx','Range','H1:L212');
+%Figure 1a
+data=readtable('cumulative data_100.xlsx','Range','A1:E212');
 data(isnan(data.IEA)==1,:)=[];
 data.Delta(data.Delta<0)=-1;
 data=sortrows(data,{'IEA','Delta'},'descend');
@@ -15,6 +16,8 @@ for i=1:length(supply)
     X_tmp=X_tmp+demand(i);
     Y=[Y_tmp,Y_tmp,Y_tmp+supply(i),Y_tmp+supply(i)];   
     Y_tmp=Y_tmp+production(i);             %generation
+	
+	% Figure S1
     %Y_tmp=Y_tmp+min(supply(i),demand(i)); %supply
     %{
     if supply(i)>=demand(i)
@@ -23,10 +26,14 @@ for i=1:length(supply)
       Y_tmp=Y_tmp+supply(i);
     end
     %}
+	
     fill(X,Y,[211,211,211]/255,'EdgeAlpha',0.1);
     hold on
+	
+	%Figure S1
     %plot([X_tmp-demand(i),X_tmp],[Y_tmp-min(supply(i),demand(i)),Y_tmp],'Color','r','LineWidth',1.5)
-    plot([X_tmp-demand(i),X_tmp],[Y_tmp-production(i),Y_tmp],'Color','r','LineWidth',1.5)
+    
+	plot([X_tmp-demand(i),X_tmp],[Y_tmp-production(i),Y_tmp],'Color','r','LineWidth',1.5)
     hold on
 end
 
@@ -41,7 +48,8 @@ set(gca,'TickDir','out')
 breakyaxis([50,365])
 
 %%
-data=readtable('cumulative data.xlsx','Range','H1:L212');
+%Figure 1b
+data=readtable('cumulative data.xlsx','Range','A1:E212');
 data(isnan(data.IEA)==1,:)=[];
 data.Delta(data.Delta<0)=-1;
 data=sortrows(data,{'IEA','Delta'},'descend');
@@ -85,6 +93,7 @@ set(gca,'TickDir','out')
 breakyaxis([50,365])
 
 %%
+%Figure 3a
 data2=readtable('cumulative data_100.xlsx','Sheet',2);
 data2(isnan(data2.IEA)==1,:)=[];
 data2(data2.IEA==0,:)=[];
@@ -139,6 +148,7 @@ set(gca,'TickDir','out')
 %breakyaxis([400,980])
 
 %%
+%Figure 3b
 data2=readtable('cumulative data.xlsx','Sheet',2);
 data2(isnan(data2.IEA)==1,:)=[];
 data2(data2.IEA==0,:)=[];

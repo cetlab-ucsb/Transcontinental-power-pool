@@ -8,7 +8,7 @@ library(openxlsx)
 library(data.table)
 library(ggpubr)
 
-setwd('\\\\babylon/phd/haozheyang/Renewable Equal/simulation/result_analysis')
+#Figure1
 
 map_data=read.xlsx("cost_metric.xlsx",sheet="summary_100")%>%setDT()
 map_data2=read.xlsx("cost_metric.xlsx",sheet="country_100")%>%setDT()
@@ -30,24 +30,6 @@ color=c(
   rgb(0,77/255,168/255)
 )
 
-
-catmethod=c(-2000,-5,-2.5,-1,-0.1,0,10,50,100,200,100000)
-
-map_produce<-mapCountryData(new_world,
-                            nameColumnToPlot = "per_capita",
-                            catMethod=catmethod,
-                            colourPalette = color,
-                            addLegend=FALSE,
-                            missingCountryCol=rgb(0.5,0.5,0.5),
-                            mapTitle = "",
-                            lwd=0.3)
-
-do.call(addMapLegend,c(map_produce,
-                       legendIntervals = "page",
-                       legendLabels="all",
-                       legendWidth=0.5,
-                       tcl=0,
-                       legendMar=5))
 
 
 catmethod=c(-1,0.025,0.05,0.1,0.2,1)
@@ -107,6 +89,8 @@ do.call(addMapLegend,c(map_produce_10,
                        tcl=0,
                        legendMar=5))
 
+
+#Figure 2
 
 world<-readOGR("../../TM_WORLD_BORDERS-0.3/TM_WORLD_BORDERS-0.3.shp")
 world_df=fortify(world,region="ISO3")
